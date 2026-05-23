@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(keybindings-help)",
+      "Bash(claude mcp *)",
+      "Bash(vercel --version)",
+      "Bash(vercel whoami *)",
+      "PowerShell(New-Item *)",
+      "PowerShell(gh *)",
+      "Bash(gh repo *)",
+      "Bash(gh auth *)",
+      "Bash(gh label *)",
+      "Bash(gh api *)",
+      "Bash(gh issue *)",
+      "Bash(sort -t'#' -k2 -n)",
+      "Bash(npm --version)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}
