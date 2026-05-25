@@ -1,9 +1,16 @@
-import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
 import tseslint from "typescript-eslint";
 import prettier from "eslint-config-prettier";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const compat = new FlatCompat({ baseDirectory: __dirname });
 
 export default tseslint.config(
-  js.configs.recommended,
+  ...compat.extends("next/core-web-vitals"),
   ...tseslint.configs.recommended,
   prettier,
   {
@@ -14,6 +21,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ["node_modules/", ".next/", "dist/", "*.config.mjs"],
+    ignores: ["node_modules/", ".next/", "dist/", "coverage/", "next-env.d.ts"],
   }
 );
