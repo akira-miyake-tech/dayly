@@ -6,6 +6,8 @@ export type User = {
   email: string;
   role: Role;
   department?: string;
+  created_at: string;
+  updated_at: string;
 };
 
 export type ApiResponse<T> = {
