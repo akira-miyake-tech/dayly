@@ -17,7 +17,26 @@
       "Bash(git branch *)",
       "Bash(git remote *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(gh pr create --repo akira-miyake-tech/dayly --title 'feat: Next.js + TypeScript + Tailwind CSS v4 + shadcn/ui 初期セットアップ' --base main --head feature/issue-1-setup --body ' *)",
+      "Bash(gh pr *)",
+      "Bash(git fetch *)",
+      "Bash(cd C:\\\\Users\\\\tobie\\\\OneDrive\\\\Documents\\\\Developments\\\\ClaudeCodeStudy\\\\dayly *)",
+      "PowerShell(head *)",
+      "Bash(gh run *)",
+      "Bash(npm run *)",
+      "Bash(git checkout *)",
+      "Bash(git pull *)",
+      "Bash(git worktree *)",
+      "Bash(git stash *)",
+      "Bash(npm install *)",
+      "Bash(npx prisma *)",
+      "PowerShell(cd \"C:\\\\Users\\\\tobie\\\\OneDrive\\\\Documents\\\\Developments\\\\ClaudeCodeStudy\\\\dayly\"; $env:NODE_TLS_REJECT_UNAUTHORIZED=0; npx prisma validate 2>&1)",
+      "Bash(npx tsc *)",
+      "mcp__context7__resolve-library-id",
+      "Bash(npm test *)",
+      "WebSearch"
     ]
   }
 }
