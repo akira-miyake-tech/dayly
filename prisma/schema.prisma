@@ -1,13 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -16,14 +12,14 @@ enum Role {
 }
 
 model User {
-  userId     Int      @id @default(autoincrement()) @map("user_id")
-  name       String   @db.VarChar(100)
-  email      String   @unique @db.VarChar(255)
-  password   String   @db.VarChar(255)
-  role       Role
-  department String?  @db.VarChar(100)
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  userId       Int      @id @default(autoincrement()) @map("user_id")
+  name         String   @db.VarChar(100)
+  email        String   @unique @db.VarChar(255)
+  passwordHash String   @map("password_hash")
+  role         Role
+  department   String?  @db.VarChar(100)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
   dailyReports DailyReport[]
   comments     Comment[]
@@ -34,7 +30,7 @@ model User {
 model Customer {
   customerId  Int      @id @default(autoincrement()) @map("customer_id")
   name        String   @db.VarChar(255)
-  companyName String   @db.VarChar(255) @map("company_name")
+  companyName String   @map("company_name") @db.VarChar(255)
   phone       String?  @db.VarChar(20)
   address     String?  @db.VarChar(500)
   createdAt   DateTime @default(now()) @map("created_at")
@@ -63,12 +59,12 @@ model DailyReport {
 }
 
 model VisitRecord {
-  visitId     Int      @id @default(autoincrement()) @map("visit_id")
-  reportId    Int      @map("report_id")
-  customerId  Int      @map("customer_id")
-  content     String   @db.VarChar(1000)
-  visitOrder  Int      @map("visit_order")
-  createdAt   DateTime @default(now()) @map("created_at")
+  visitId    Int      @id @default(autoincrement()) @map("visit_id")
+  reportId   Int      @map("report_id")
+  customerId Int      @map("customer_id")
+  content    String   @db.VarChar(1000)
+  visitOrder Int      @map("visit_order")
+  createdAt  DateTime @default(now()) @map("created_at")
 
   report   DailyReport @relation(fields: [reportId], references: [reportId])
   customer Customer    @relation(fields: [customerId], references: [customerId])
