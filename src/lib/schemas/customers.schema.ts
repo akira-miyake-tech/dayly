@@ -26,9 +26,7 @@ export const CustomerDetailSchema = z.object({
 
 export const GetCustomersResponseSchema = apiResponse(
   z.object({
-    customers: z.array(
-      CustomerDetailSchema.omit({ created_at: true, updated_at: true })
-    ),
+    customers: z.array(CustomerDetailSchema.omit({ created_at: true, updated_at: true })),
     pagination: PaginationSchema,
   })
 );

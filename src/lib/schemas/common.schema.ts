@@ -26,9 +26,7 @@ export function apiResponse<T extends z.ZodTypeAny>(dataSchema: T) {
   return z.object({ data: dataSchema });
 }
 
-export function validationError(
-  details: { field: string; message: string }[]
-) {
+export function validationError(details: { field: string; message: string }[]) {
   return {
     error: {
       code: "VALIDATION_ERROR" as const,
