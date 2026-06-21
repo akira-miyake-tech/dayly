@@ -7,18 +7,26 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Loader2, PlusCircle, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useAuth } from "@/contexts/AuthContext";
-import { ApiError, api } from "@/lib/api";
+import { ApiError } from "@/lib/api";
 import { MOCK_CUSTOMERS } from "@/lib/mock-data";
 
 type Customer = { customer_id: number; name: string; company_name: string };
 
 const visitRecordSchema = z.object({
   customer_id: z.string().min(1, "顧客を選択してください"),
-  content: z.string().min(1, "訪問内容を入力してください").max(1000, "1000文字以内で入力してください"),
+  content: z
+    .string()
+    .min(1, "訪問内容を入力してください")
+    .max(1000, "1000文字以内で入力してください"),
 });
 
 const formSchema = z.object({
@@ -72,7 +80,7 @@ export default function ReportNewPage() {
 
   const { fields, append, remove } = useFieldArray({ control, name: "visit_records" });
 
-  const onSubmit = async (values: FormValues) => {
+  const onSubmit = async (_values: FormValues) => {
     setServerError(null);
     try {
       // 実際は POST /api/v1/reports

@@ -36,9 +36,6 @@ vi.mock("@/contexts/AuthContext", () => ({
   }),
 }));
 
-// mock-data をモック（今日の日付を含むデータを使用）
-const TODAY = new Date().toISOString().split("T")[0];
-
 vi.mock("@/lib/mock-data", () => {
   const today = new Date().toISOString().split("T")[0];
   return {

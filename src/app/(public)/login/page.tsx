@@ -11,11 +11,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
-import { api, ApiError } from "@/lib/api";
-import type { LoginResponse } from "@/lib/schemas";
+import { ApiError } from "@/lib/api";
 
 const loginSchema = z.object({
-  email: z.string().min(1, "メールアドレスを入力してください").email("メール形式で入力してください").max(255),
+  email: z
+    .string()
+    .min(1, "メールアドレスを入力してください")
+    .email("メール形式で入力してください")
+    .max(255),
   password: z.string().min(8, "パスワードは8文字以上で入力してください"),
 });
 
@@ -25,13 +28,6 @@ export default function LoginPage() {
   const router = useRouter();
   const { login, user } = useAuth();
   const [serverError, setServerError] = useState<string | null>(null);
-
-  // 認証済みならダッシュボードへ
-  if (user) {
-    router.replace("/dashboard");
-    return null;
-  }
-
   const {
     register,
     handleSubmit,
@@ -39,6 +35,12 @@ export default function LoginPage() {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
+
+  // 認証済みならダッシュボードへ
+  if (user) {
+    router.replace("/dashboard");
+    return null;
+  }
 
   const onSubmit = async (values: LoginFormValues) => {
     setServerError(null);
@@ -78,9 +80,7 @@ export default function LoginPage() {
                 autoComplete="email"
                 {...register("email")}
               />
-              {errors.email && (
-                <p className="text-sm text-destructive">{errors.email.message}</p>
-              )}
+              {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
             </div>
 
             <div className="space-y-1.5">
@@ -97,9 +97,7 @@ export default function LoginPage() {
               )}
             </div>
 
-            {serverError && (
-              <p className="text-sm text-destructive text-center">{serverError}</p>
-            )}
+            {serverError && <p className="text-sm text-destructive text-center">{serverError}</p>}
 
             <Button type="submit" className="w-full" disabled={isSubmitting}>
               {isSubmitting ? (

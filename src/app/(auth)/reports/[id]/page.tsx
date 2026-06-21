@@ -10,13 +10,15 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useAuth } from "@/contexts/AuthContext";
-import { ApiError, api } from "@/lib/api";
 import { MOCK_REPORT_DETAIL } from "@/lib/mock-data";
 
 type ReportDetail = typeof MOCK_REPORT_DETAIL;
 
 const commentSchema = z.object({
-  content: z.string().min(1, "コメントを入力してください").max(2000, "2000文字以内で入力してください"),
+  content: z
+    .string()
+    .min(1, "コメントを入力してください")
+    .max(2000, "2000文字以内で入力してください"),
 });
 type CommentFormValues = z.infer<typeof commentSchema>;
 
@@ -54,7 +56,12 @@ export default function ReportDetailPage() {
     fetch();
   }, [id]);
 
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<CommentFormValues>({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<CommentFormValues>({
     resolver: zodResolver(commentSchema),
   });
 
@@ -97,7 +104,7 @@ export default function ReportDetailPage() {
         });
       }
       reset();
-    } catch (err) {
+    } catch {
       setCommentError("コメントの送信に失敗しました。");
     } finally {
       setIsSubmittingComment(false);
@@ -113,7 +120,11 @@ export default function ReportDetailPage() {
   }
 
   if (!report) {
-    return <div className="p-6"><p className="text-muted-foreground">日報が見つかりませんでした。</p></div>;
+    return (
+      <div className="p-6">
+        <p className="text-muted-foreground">日報が見つかりませんでした。</p>
+      </div>
+    );
   }
 
   return (
@@ -131,11 +142,7 @@ export default function ReportDetailPage() {
               <Edit className="mr-2 h-4 w-4" />
               編集
             </Button>
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={() => setDeleteDialogOpen(true)}
-            >
+            <Button variant="destructive" size="sm" onClick={() => setDeleteDialogOpen(true)}>
               <Trash2 className="mr-2 h-4 w-4" />
               削除
             </Button>
@@ -218,9 +225,7 @@ export default function ReportDetailPage() {
               className="min-h-[80px]"
               {...register("content")}
             />
-            {errors.content && (
-              <p className="text-sm text-destructive">{errors.content.message}</p>
-            )}
+            {errors.content && <p className="text-sm text-destructive">{errors.content.message}</p>}
             {commentError && <p className="text-sm text-destructive">{commentError}</p>}
             <div className="flex justify-end">
               <Button type="submit" size="sm" disabled={isSubmittingComment}>

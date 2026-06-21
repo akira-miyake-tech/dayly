@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser } from "@/lib/auth";
 import { checkTokenRevoked } from "@/lib/checkRevoked";
@@ -41,10 +41,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     const where = q
       ? {
-          OR: [
-            { name: { contains: q } },
-            { companyName: { contains: q } },
-          ],
+          OR: [{ name: { contains: q } }, { companyName: { contains: q } }],
         }
       : {};
 

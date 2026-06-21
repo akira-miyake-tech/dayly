@@ -1,7 +1,7 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { unauthorizedResponse } from "@/lib/response";
-import { NextResponse } from "next/server";
+import type { NextResponse } from "next/server";
 
 /**
  * リクエストのトークンがrevoked（無効化）されていないか確認する

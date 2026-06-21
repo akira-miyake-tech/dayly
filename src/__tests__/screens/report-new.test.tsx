@@ -42,7 +42,11 @@ vi.mock("@/contexts/AuthContext", () => ({
 vi.mock("@/lib/api", () => ({
   api: { post: vi.fn() },
   ApiError: class ApiError extends Error {
-    constructor(public status: number, public code: string, message: string) {
+    constructor(
+      public status: number,
+      public code: string,
+      message: string
+    ) {
       super(message);
     }
   },
@@ -86,7 +90,6 @@ describe("SCR-TEST-005: 日報作成（正常系）", () => {
   });
 
   it("フォームを提出すると日報詳細ページに遷移する", async () => {
-    const user = userEvent.setup();
     render(<ReportNewPage />);
 
     // 「提出する」ボタンをクリック（実際は訪問記録入力が必要だが、モックなので最低限の確認）

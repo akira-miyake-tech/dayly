@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 export type JwtPayload = {
   user_id: number;
@@ -81,9 +81,7 @@ export function requireRole(
 ): AuthUser {
   const user = getAuthUser(req);
   if (user.role !== requiredRole) {
-    throw new RoleError(
-      `Role '${requiredRole}' required, but got '${user.role}'`
-    );
+    throw new RoleError(`Role '${requiredRole}' required, but got '${user.role}'`);
   }
   return user;
 }

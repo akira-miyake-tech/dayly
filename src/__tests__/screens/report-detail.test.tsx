@@ -35,14 +35,15 @@ vi.mock("@/contexts/AuthContext", () => ({
 vi.mock("@/lib/api", () => ({
   api: { post: vi.fn(), delete: vi.fn() },
   ApiError: class ApiError extends Error {
-    constructor(public status: number, public code: string, message: string) {
+    constructor(
+      public status: number,
+      public code: string,
+      message: string
+    ) {
       super(message);
     }
   },
 }));
-
-// 今日の日付
-const TODAY = new Date().toISOString().split("T")[0];
 
 // mock-data をモック（当日の日報）
 vi.mock("@/lib/mock-data", () => {

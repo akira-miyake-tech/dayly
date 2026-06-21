@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import type { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getAuthUser, RoleError } from "@/lib/auth";
 import { checkTokenRevoked } from "@/lib/checkRevoked";

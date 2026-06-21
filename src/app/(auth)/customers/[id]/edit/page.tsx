@@ -14,7 +14,10 @@ import { ApiError } from "@/lib/api";
 import { MOCK_CUSTOMERS } from "@/lib/mock-data";
 
 const customerSchema = z.object({
-  company_name: z.string().min(1, "会社名を入力してください").max(255, "255文字以内で入力してください"),
+  company_name: z
+    .string()
+    .min(1, "会社名を入力してください")
+    .max(255, "255文字以内で入力してください"),
   name: z.string().min(1, "顧客名を入力してください").max(255, "255文字以内で入力してください"),
   phone: z.string().max(20, "20文字以内で入力してください").optional(),
   address: z.string().max(500, "500文字以内で入力してください").optional(),
@@ -52,7 +55,7 @@ export default function CustomerEditPage() {
     }
   }, [id, user, router, reset]);
 
-  const onSubmit = async (values: CustomerFormValues) => {
+  const onSubmit = async (_values: CustomerFormValues) => {
     try {
       // 実際は PUT /api/v1/customers/:id
       await new Promise((r) => setTimeout(r, 300));
@@ -74,13 +77,19 @@ export default function CustomerEditPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-1.5">
-          <Label htmlFor="company_name">会社名 <span className="text-destructive">*</span></Label>
+          <Label htmlFor="company_name">
+            会社名 <span className="text-destructive">*</span>
+          </Label>
           <Input id="company_name" {...register("company_name")} placeholder="株式会社〇〇" />
-          {errors.company_name && <p className="text-sm text-destructive">{errors.company_name.message}</p>}
+          {errors.company_name && (
+            <p className="text-sm text-destructive">{errors.company_name.message}</p>
+          )}
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="name">顧客名（担当者名） <span className="text-destructive">*</span></Label>
+          <Label htmlFor="name">
+            顧客名（担当者名） <span className="text-destructive">*</span>
+          </Label>
           <Input id="name" {...register("name")} placeholder="鈴木 様" />
           {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
         </div>
@@ -105,7 +114,10 @@ export default function CustomerEditPage() {
           </Button>
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
-              <><Loader2 className="mr-2 h-4 w-4 animate-spin" />保存中...</>
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                保存中...
+              </>
             ) : (
               "保存する"
             )}
