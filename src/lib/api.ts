@@ -1,4 +1,4 @@
-import { getToken } from "./auth";
+import { getToken } from "./auth-client";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "/api/v1";
 
@@ -32,7 +32,12 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
   if (!res.ok) {
     const err = json?.error;
-    throw new ApiError(res.status, err?.code ?? "UNKNOWN", err?.message ?? "エラーが発生しました", err?.details);
+    throw new ApiError(
+      res.status,
+      err?.code ?? "UNKNOWN",
+      err?.message ?? "エラーが発生しました",
+      err?.details
+    );
   }
 
   return json as T;
