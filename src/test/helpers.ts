@@ -58,9 +58,27 @@ export async function authHeader(
  * テスト用ユーザーデータ
  */
 export const TEST_USERS = {
-  yamada: { user_id: 1, name: "山田 太郎", email: "yamada@test.com", role: "sales" as const, department: "東日本営業部" },
-  suzuki: { user_id: 2, name: "鈴木 一郎", email: "suzuki@test.com", role: "sales" as const, department: "西日本営業部" },
-  sato: { user_id: 3, name: "佐藤 部長", email: "sato@test.com", role: "manager" as const, department: "営業本部" },
+  yamada: {
+    user_id: 1,
+    name: "山田 太郎",
+    email: "yamada@test.com",
+    role: "sales" as const,
+    department: "東日本営業部",
+  },
+  suzuki: {
+    user_id: 2,
+    name: "鈴木 一郎",
+    email: "suzuki@test.com",
+    role: "sales" as const,
+    department: "西日本営業部",
+  },
+  sato: {
+    user_id: 3,
+    name: "佐藤 部長",
+    email: "sato@test.com",
+    role: "manager" as const,
+    department: "営業本部",
+  },
 };
 
 /**
@@ -78,3 +96,43 @@ export const TEST_REPORTS = {
   report1: { report_id: 1, user_id: 1, report_date: "2026-05-20" }, // 山田の過去日報
   report2: { report_id: 2, user_id: 2, report_date: "2026-05-20" }, // 鈴木の過去日報
 };
+
+/**
+ * 認証済みNextRequestを作るためのヘルパー
+ * Route Handlerはmiddlewareが設定するカスタムヘッダーを読む
+ */
+export function makeAuthHeaders(user: {
+  user_id: number;
+  role: "sales" | "manager";
+  email: string;
+}): Record<string, string> {
+  return {
+    "x-auth-user-id": String(user.user_id),
+    "x-auth-user-role": user.role,
+    "x-auth-user-email": user.email,
+  };
+}
+
+/**
+ * NextRequest相当のRequestオブジェクトを生成する
+ */
+export function makeRequest(
+  url: string,
+  options: {
+    method?: string;
+    body?: unknown;
+    headers?: Record<string, string>;
+  } = {}
+): Request {
+  const { method = "GET", body, headers = {} } = options;
+  const reqHeaders: Record<string, string> = {
+    "Content-Type": "application/json",
+    ...headers,
+  };
+
+  return new Request(url, {
+    method,
+    headers: reqHeaders,
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
+}
