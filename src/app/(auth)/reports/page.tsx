@@ -6,7 +6,13 @@ import { FilePlus, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Pagination } from "@/components/ui/Pagination";
 import { useAuth } from "@/contexts/AuthContext";
 import { MOCK_REPORTS, MOCK_USERS } from "@/lib/mock-data";
@@ -165,9 +171,7 @@ export default function ReportsPage() {
                   onClick={() => router.push(`/reports/${report.report_id}`)}
                 >
                   <td className="px-4 py-2">{formatDate(report.report_date)}</td>
-                  {user?.role === "manager" && (
-                    <td className="px-4 py-2">{report.user.name}</td>
-                  )}
+                  {user?.role === "manager" && <td className="px-4 py-2">{report.user.name}</td>}
                   <td className="px-4 py-2">{report.visit_count}件</td>
                   <td className="px-4 py-2">
                     {report.comment_count}件
@@ -184,12 +188,7 @@ export default function ReportsPage() {
         </div>
       )}
 
-      <Pagination
-        total={total}
-        page={page}
-        perPage={PER_PAGE}
-        onPageChange={setPage}
-      />
+      <Pagination total={total} page={page} perPage={PER_PAGE} onPageChange={setPage} />
     </div>
   );
 }

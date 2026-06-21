@@ -44,7 +44,11 @@ vi.mock("@/contexts/AuthContext", () => ({
 vi.mock("@/lib/api", () => ({
   api: { post: vi.fn(), put: vi.fn(), delete: vi.fn() },
   ApiError: class ApiError extends Error {
-    constructor(public status: number, public code: string, message: string) {
+    constructor(
+      public status: number,
+      public code: string,
+      message: string
+    ) {
       super(message);
     }
   },
@@ -121,8 +125,11 @@ describe("INT-002: 日報作成から編集・削除までのフロー", () => {
     await user.click(confirmDeleteButton);
 
     // 日報一覧ページへ遷移する（モック上では 300ms 後）
-    await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith("/reports");
-    }, { timeout: 2000 });
+    await waitFor(
+      () => {
+        expect(mockPush).toHaveBeenCalledWith("/reports");
+      },
+      { timeout: 2000 }
+    );
   });
 });

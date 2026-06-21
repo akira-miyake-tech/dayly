@@ -44,6 +44,8 @@ export function validationErrorResponse(
   return errorResponse("VALIDATION_ERROR", "入力内容に誤りがあります", 400, details);
 }
 
-export function internalServerErrorResponse(message: string = "サーバーエラーが発生しました"): NextResponse {
+export function internalServerErrorResponse(
+  message: string = "サーバーエラーが発生しました"
+): NextResponse {
   return errorResponse("INTERNAL_SERVER_ERROR", message, 500);
 }

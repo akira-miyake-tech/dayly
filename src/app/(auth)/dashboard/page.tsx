@@ -35,7 +35,9 @@ export default function DashboardPage() {
     fetchReports();
   }, []);
 
-  const todayReport = reports.find((r) => r.report_date === today && r.user.user_id === user?.user_id);
+  const todayReport = reports.find(
+    (r) => r.report_date === today && r.user.user_id === user?.user_id
+  );
   const totalUnread = reports.reduce((sum, r) => sum + r.unread_comment_count, 0);
 
   const formatDate = (dateStr: string) => {
@@ -52,7 +54,9 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">本日の日報</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                本日の日報
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -82,7 +86,9 @@ export default function DashboardPage() {
 
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">未読コメント</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                未読コメント
+              </CardTitle>
             </CardHeader>
             <CardContent>
               {isLoading ? (
@@ -135,9 +141,7 @@ export default function DashboardPage() {
                     onClick={() => (window.location.href = `/reports/${report.report_id}`)}
                   >
                     <td className="px-4 py-2">{formatDate(report.report_date)}</td>
-                    {user?.role === "manager" && (
-                      <td className="px-4 py-2">{report.user.name}</td>
-                    )}
+                    {user?.role === "manager" && <td className="px-4 py-2">{report.user.name}</td>}
                     <td className="px-4 py-2">{report.visit_count}件</td>
                     <td className="px-4 py-2">
                       {report.comment_count}件

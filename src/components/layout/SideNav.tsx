@@ -2,14 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  BarChart3,
-  BookOpen,
-  FilePlus,
-  LogOut,
-  Users,
-  UserCog,
-} from "lucide-react";
+import { BarChart3, BookOpen, FilePlus, LogOut, Users, UserCog } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import { api } from "@/lib/api";
@@ -24,9 +17,19 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { label: "ダッシュボード", href: "/dashboard", icon: <BarChart3 className="h-4 w-4" /> },
   { label: "日報一覧", href: "/reports", icon: <BookOpen className="h-4 w-4" /> },
-  { label: "日報作成", href: "/reports/new", icon: <FilePlus className="h-4 w-4" />, roles: ["sales"] },
+  {
+    label: "日報作成",
+    href: "/reports/new",
+    icon: <FilePlus className="h-4 w-4" />,
+    roles: ["sales"],
+  },
   { label: "顧客マスタ", href: "/customers", icon: <Users className="h-4 w-4" /> },
-  { label: "営業マスタ", href: "/users", icon: <UserCog className="h-4 w-4" />, roles: ["manager"] },
+  {
+    label: "営業マスタ",
+    href: "/users",
+    icon: <UserCog className="h-4 w-4" />,
+    roles: ["manager"],
+  },
 ];
 
 export function SideNav() {

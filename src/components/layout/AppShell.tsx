@@ -6,9 +6,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <aside className="w-56 flex-shrink-0">
         <SideNav />
       </aside>
-      <main className="flex-1 overflow-y-auto bg-background">
-        {children}
-      </main>
+      <main className="flex-1 overflow-y-auto bg-background">{children}</main>
     </div>
   );
 }

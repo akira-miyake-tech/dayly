@@ -17,10 +17,18 @@ import { MOCK_USERS } from "@/lib/mock-data";
 // 編集時はパスワード任意
 const userEditSchema = z.object({
   name: z.string().min(1, "氏名を入力してください").max(100, "100文字以内で入力してください"),
-  email: z.string().min(1, "メールアドレスを入力してください").email("メール形式で入力してください").max(255),
+  email: z
+    .string()
+    .min(1, "メールアドレスを入力してください")
+    .email("メール形式で入力してください")
+    .max(255),
   role: z.enum(["sales", "manager"], { error: "役割を選択してください" }),
   department: z.string().max(100, "100文字以内で入力してください").optional(),
-  password: z.string().min(8, "パスワードは8文字以上で入力してください").optional().or(z.literal("")),
+  password: z
+    .string()
+    .min(8, "パスワードは8文字以上で入力してください")
+    .optional()
+    .or(z.literal("")),
 });
 
 type UserEditFormValues = z.infer<typeof userEditSchema>;
@@ -95,28 +103,30 @@ export default function UserEditPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-1.5">
-          <Label htmlFor="name">氏名 <span className="text-destructive">*</span></Label>
+          <Label htmlFor="name">
+            氏名 <span className="text-destructive">*</span>
+          </Label>
           <Input id="name" {...register("name")} placeholder="山田 太郎" />
           {errors.name && <p className="text-sm text-destructive">{errors.name.message}</p>}
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="email">メールアドレス <span className="text-destructive">*</span></Label>
+          <Label htmlFor="email">
+            メールアドレス <span className="text-destructive">*</span>
+          </Label>
           <Input id="email" type="email" {...register("email")} />
           {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
         </div>
 
         <div className="space-y-2">
-          <Label>役割 <span className="text-destructive">*</span></Label>
+          <Label>
+            役割 <span className="text-destructive">*</span>
+          </Label>
           <Controller
             control={control}
             name="role"
             render={({ field }) => (
-              <RadioGroup
-                value={field.value}
-                onValueChange={field.onChange}
-                className="flex gap-4"
-              >
+              <RadioGroup value={field.value} onValueChange={field.onChange} className="flex gap-4">
                 <div className="flex items-center gap-2">
                   <RadioGroupItem value="sales" id="edit-role-sales" />
                   <Label htmlFor="edit-role-sales">営業</Label>
@@ -134,11 +144,16 @@ export default function UserEditPage() {
         <div className="space-y-1.5">
           <Label htmlFor="department">部署</Label>
           <Input id="department" {...register("department")} />
-          {errors.department && <p className="text-sm text-destructive">{errors.department.message}</p>}
+          {errors.department && (
+            <p className="text-sm text-destructive">{errors.department.message}</p>
+          )}
         </div>
 
         <div className="space-y-1.5">
-          <Label htmlFor="password">パスワード <span className="text-muted-foreground text-xs">（変更する場合のみ入力）</span></Label>
+          <Label htmlFor="password">
+            パスワード{" "}
+            <span className="text-muted-foreground text-xs">（変更する場合のみ入力）</span>
+          </Label>
           <Input id="password" type="password" {...register("password")} placeholder="8文字以上" />
           {errors.password && <p className="text-sm text-destructive">{errors.password.message}</p>}
         </div>
@@ -151,7 +166,10 @@ export default function UserEditPage() {
           </Button>
           <Button type="submit" disabled={isSubmitting}>
             {isSubmitting ? (
-              <><Loader2 className="mr-2 h-4 w-4 animate-spin" />保存中...</>
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                保存中...
+              </>
             ) : (
               "保存する"
             )}

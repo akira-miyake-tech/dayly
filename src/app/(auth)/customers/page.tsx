@@ -41,10 +41,7 @@ export default function CustomersPage() {
     // モック（実際は GET /api/v1/customers?q=...）
     await new Promise((r) => setTimeout(r, 100));
     const filtered = MOCK_CUSTOMERS.filter(
-      (c) =>
-        !searchQ ||
-        c.name.includes(searchQ) ||
-        c.company_name.includes(searchQ)
+      (c) => !searchQ || c.name.includes(searchQ) || c.company_name.includes(searchQ)
     );
     setTotal(filtered.length);
     setCustomers(filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE));
@@ -115,9 +112,7 @@ export default function CustomersPage() {
       </form>
 
       {/* エラーメッセージ */}
-      {deleteError && (
-        <p className="text-sm text-destructive">{deleteError}</p>
-      )}
+      {deleteError && <p className="text-sm text-destructive">{deleteError}</p>}
 
       {/* 一覧テーブル */}
       {isLoading ? (

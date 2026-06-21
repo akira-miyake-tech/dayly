@@ -35,7 +35,12 @@ export function ConfirmDialog({
   cancelLabel = "キャンセル",
 }: ConfirmDialogProps) {
   return (
-    <AlertDialog open={open} onOpenChange={(o) => { if (!o) onCancel(); }}>
+    <AlertDialog
+      open={open}
+      onOpenChange={(o) => {
+        if (!o) onCancel();
+      }}
+    >
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
