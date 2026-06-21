@@ -3,7 +3,8 @@
  * API-AUTH-001〜004
  */
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { type NextRequest } from "next/server";
+
+import { NextRequest } from "next/server";
 import { makeAuthHeaders } from "@/test/helpers";
 import type * as AuthLib from "@/lib/auth";
 

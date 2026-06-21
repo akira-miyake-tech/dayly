@@ -34,10 +34,7 @@ vi.mock("@/lib/prisma", () => ({
 }));
 
 import { prisma } from "@/lib/prisma";
-import {
-  GET as reportsGET,
-  POST as reportsPOST,
-} from "@/app/api/v1/reports/route";
+import { GET as reportsGET, POST as reportsPOST } from "@/app/api/v1/reports/route";
 import {
   GET as reportDetailGET,
   PUT as reportPUT,

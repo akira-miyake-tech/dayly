@@ -99,10 +99,13 @@ describe("API-CST-002: GET /customers?q=アルファ", () => {
     mockPrisma.customer.count.mockResolvedValue(1);
     mockPrisma.customer.findMany.mockResolvedValue([customerAlpha]);
 
-    const req = new NextRequest("http://localhost/api/v1/customers?q=%E3%82%A2%E3%83%AB%E3%83%95%E3%82%A1", {
-      method: "GET",
-      headers: yamadaHeaders,
-    });
+    const req = new NextRequest(
+      "http://localhost/api/v1/customers?q=%E3%82%A2%E3%83%AB%E3%83%95%E3%82%A1",
+      {
+        method: "GET",
+        headers: yamadaHeaders,
+      }
+    );
 
     const res = await customersGET(req);
     const body = await res.json();
