@@ -5,9 +5,14 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   test: {
-    environment: "jsdom",
+    environment: "node",
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
+    environmentMatchGlobs: [
+      // React component tests use jsdom
+      ["src/**/*.test.tsx", "jsdom"],
+      ["src/lib/utils.test.ts", "jsdom"],
+    ],
     coverage: {
       provider: "v8",
       reporter: ["text", "lcov"],
