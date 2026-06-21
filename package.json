@@ -14,7 +14,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "postinstall": "prisma generate",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "prisma migrate reset --force && npm run db:seed"
   },
   "dependencies": {
     "@prisma/client": "^7.8.0",
@@ -35,6 +37,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/bcryptjs": "^2.4.6",
+    "tsx": "^4.19.2",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6",
     "@testing-library/react": "^16",
