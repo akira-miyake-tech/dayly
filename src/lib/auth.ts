@@ -22,12 +22,9 @@ function getJwtSecret(): Uint8Array {
   return new TextEncoder().encode(secret);
 }
 
-/**
- * JWTトークンを発行する
- */
 export async function signToken(payload: JwtPayload): Promise<{ token: string; expiresAt: Date }> {
   const secret = getJwtSecret();
-  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24時間後
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
 
   const token = await new SignJWT({
     user_id: payload.user_id,
@@ -43,18 +40,12 @@ export async function signToken(payload: JwtPayload): Promise<{ token: string; e
   return { token, expiresAt };
 }
 
-/**
- * JWTトークンを検証してペイロードを返す
- */
 export async function verifyToken(token: string): Promise<JwtPayload> {
   const secret = getJwtSecret();
   const { payload } = await jwtVerify(token, secret);
   return payload as unknown as JwtPayload;
 }
 
-/**
- * リクエストからAuthorizationヘッダーのBearerトークンを取得する
- */
 export function extractBearerToken(req: NextRequest | Request): string | null {
   const authHeader = req.headers.get("authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -63,10 +54,6 @@ export function extractBearerToken(req: NextRequest | Request): string | null {
   return authHeader.slice(7);
 }
 
-/**
- * Route Handler内でリクエストヘッダーから認証済みユーザーを取得する
- * middleware.ts によってヘッダーにセットされたユーザー情報を読み出す
- */
 export function getAuthUser(req: NextRequest | Request): AuthUser {
   const userIdStr = req.headers.get("x-auth-user-id");
   const role = req.headers.get("x-auth-user-role");
@@ -88,10 +75,6 @@ export function getAuthUser(req: NextRequest | Request): AuthUser {
   return { user_id: userId, role, email };
 }
 
-/**
- * Route Handler内でロールをチェックする
- * 指定ロール以外の場合はエラーを投げる
- */
 export function requireRole(
   req: NextRequest | Request,
   requiredRole: "sales" | "manager"
@@ -105,9 +88,6 @@ export function requireRole(
   return user;
 }
 
-/**
- * ロール違反時のエラークラス
- */
 export class RoleError extends Error {
   constructor(message: string) {
     super(message);
@@ -115,9 +95,6 @@ export class RoleError extends Error {
   }
 }
 
-/**
- * 未認証時のエラークラス
- */
 export class UnauthorizedError extends Error {
   constructor(message: string = "Unauthorized") {
     super(message);
