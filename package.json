@@ -14,7 +14,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "postinstall": "prisma generate",
-    "prepare": "husky"
+    "prepare": "husky",
+    "db:seed": "tsx prisma/seed.ts",
+    "db:reset": "prisma migrate reset --force && npm run db:seed"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -24,9 +26,11 @@
     "@radix-ui/react-radio-group": "^1.4.1",
     "@radix-ui/react-select": "^2.3.1",
     "@radix-ui/react-slot": "^1.2.4",
+    "bcryptjs": "^3.0.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
+    "jose": "^5.9.6",
     "js-cookie": "^3.0.8",
     "lucide-react": "^1.16.0",
     "next": "^15",
@@ -39,6 +43,8 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/bcryptjs": "^2.4.6",
+    "tsx": "^4.19.2",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6",
     "@testing-library/react": "^16",
