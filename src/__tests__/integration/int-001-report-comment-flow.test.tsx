@@ -8,7 +8,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen, waitFor, act } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import type { AuthUser } from "@/lib/auth";
@@ -40,15 +40,17 @@ vi.mock("@/contexts/AuthContext", () => ({
 vi.mock("@/lib/api", () => ({
   api: { post: vi.fn(), delete: vi.fn() },
   ApiError: class ApiError extends Error {
-    constructor(public status: number, public code: string, message: string) {
+    constructor(
+      public status: number,
+      public code: string,
+      message: string
+    ) {
       super(message);
     }
   },
 }));
 
 // mock-data をモック
-const TODAY = new Date().toISOString().split("T")[0];
-
 vi.mock("@/lib/mock-data", () => {
   const today = new Date().toISOString().split("T")[0];
   return {

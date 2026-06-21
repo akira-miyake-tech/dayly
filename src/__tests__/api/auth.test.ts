@@ -3,8 +3,9 @@
  * API-AUTH-001〜004
  */
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { NextRequest } from "next/server";
+import { type NextRequest } from "next/server";
 import { makeAuthHeaders } from "@/test/helpers";
+import type * as AuthLib from "@/lib/auth";
 
 // Prismaをモック
 vi.mock("@/lib/prisma", () => ({
@@ -33,7 +34,7 @@ vi.mock("bcryptjs", () => ({
 
 // jose の signToken をモック（JWT_SECRETが不要になる）
 vi.mock("@/lib/auth", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("@/lib/auth")>();
+  const actual = await importOriginal<typeof AuthLib>();
   return {
     ...actual,
     signToken: vi.fn().mockResolvedValue({

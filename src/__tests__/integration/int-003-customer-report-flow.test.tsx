@@ -8,7 +8,7 @@
  * mock-data の状態変化としてシミュレートする。
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import type { AuthUser } from "@/lib/auth";
@@ -44,7 +44,11 @@ vi.mock("@/contexts/AuthContext", () => ({
 vi.mock("@/lib/api", () => ({
   api: { post: vi.fn() },
   ApiError: class ApiError extends Error {
-    constructor(public status: number, public code: string, message: string) {
+    constructor(
+      public status: number,
+      public code: string,
+      message: string
+    ) {
       super(message);
     }
   },

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 // JWT_SECRET を環境変数から取得するヘルパー
