@@ -6,6 +6,10 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: "node",
+    environmentMatchGlobs: [
+      ["src/__tests__/screens/**", "jsdom"],
+      ["src/__tests__/integration/**", "jsdom"],
+    ],
     globals: true,
     setupFiles: ["./vitest.setup.ts"],
     env: {
